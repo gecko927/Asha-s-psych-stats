@@ -1,0 +1,263 @@
+\section{Probability Theory}
+
+\subsection{Set Theory}
+\begin{defn}
+    The set, $S$, of all possible outcomes of a particular experiment is called the \textit{sample space} for the experiment.
+\end{defn}
+\begin{defn}
+    An \textit{event} is any collection of possible outcomes of an experiment, that is, any subset of $S$ (including $S$ itself).
+\end{defn}
+\begin{exmp} [Event operations]
+    Selecting cards...
+\end{exmp}
+\begin{thm}
+    \textit{For any three events, $A$, $B$, $C$, defined on a sample space $S$,}
+    
+    \textbf{a.} Commutativity
+    \begin{align*}
+        A \cup B = B \cup A, \\
+        A \cap B = B \cap A;
+    \end{align*}
+    \textbf{b.} Associativity
+    \begin{align*}
+        A \cup (B \cup C) = (A \cup B) \cup C, \\
+        A \cap (B \cap C) = (A \cap B) \cap C;
+    \end{align*}
+    \textbf{c.} Distributive Laws
+    \begin{align*}
+        A \cap (B \cup C) = (A \cap B) \cup (A \cap C), \\
+        A \cup (B \cap C) = (A \cup B) \cap (A \cup C);
+    \end{align*}
+    \textbf{d.} DeMorgan's Laws
+    \begin{align*}
+        (A \cup B)^c = A^c \cap B^c, \\
+        (A \cap B)^c = A^c \cup B^c.
+    \end{align*}
+\end{thm}
+Proof can be done as an exercise
+\begin{defn}
+    Two events $A$ and $B$ are disjoint (or \textit{mutually exclusive}) if $A \cap B = \emptyset$. The events $A_1, A_2, ...$ are \textit{pairwise disojoint} (or \textit{mutually exclusive}) if $A_i \cap A_j = \emptyset$ for all $i \neq j$.
+\end{defn}
+\begin{defn}
+    If $A_1, A_2, ...$ are pairwise disjoint and $\bigcup^\infty_{i = 0} A_i = S$, then the collection $A_1, A_2, ...$ forms a \textit{partition} of S.
+\end{defn}
+
+\subsubsection{Basics of probability Theory}
+
+\begin{thm}
+    If $P$ is a probability function and $A$ is any set in $S$, then
+
+    \textbf{a.} $P(\emptyset) = 0$, where $\emptyset$ is the empty set; \\
+    \textbf{b.} $P(A) \leq 1$; \\
+    \textbf{c.} $P(A^c) = 1 - P(A)$.
+\end{thm}
+\begin{thm}
+    If $P$ is a probability function and $A$ and $B$ are any sets in $\mathcal{B}$, then
+
+    \textbf{a.} $P(B \cap A^c) = P(B) - P(A \cap B)$; \\
+    \textbf{b.} $P(A \cup B) = P(A) + P(B) - P(A \cap B)$; \\
+    \textbf{c.} If $A \subset B$, then $P(A) \leq P(B)$.
+\end{thm}
+\begin{thm}
+    If a job consists of $k$ separate tasks, the $i$th of which can be done in $n_i$ ways, $i = 1, ..., k$, then the entire job can be done in $n_1 \times n_2 \times ... \times n_k$ ways.
+\end{thm}
+This is sometimes known as the Fundamental Theorem of Counting. The proof for this can be done as an exercise.
+\begin{exmp}[Lottery - II]
+    Although the Fundamental Theorem of Counting is a reasonable place to start...
+\end{exmp}
+\begin{defn}
+    For a positive integer $n$, $n!$ (read $n$ factorial) is the product of all of the positive integers less than or equal to $n$. That is,
+    \begin{align*}
+        n! = n \times (n - 1) \times (n - 2) \times ... \times 3 \times 2 \times 1.
+    \end{align*}
+    Furthermore, we define $0! = 1$.
+\end{defn}
+\begin{defn}
+    For nonnegative integers $n$ and $r$, where $n \geq r$, we define the symbol $\binom{n}{r}$, read $n$ \textit{choose} $r$, as
+    \begin{align*}
+        \binom{n}{r} = \frac{n!}{r!(n - r)!}
+    \end{align*}
+\end{defn}
+\begin{center}
+\begin{tabular}{c|c|c|}
+     &  Without replacement & With replacement \\ \hline
+     Ordered & $\frac{n!}{(n - r)!}$ & $n^r$ \\ 
+     Unordered & $\binom{n}{r}$ & $\binom{n + r - 1}{r}$
+\end{tabular}
+\end{center}
+\begin{exmp}[Poker]
+    Consider choosing a five-card poker hand...
+\end{exmp}
+\begin{exmp}[Sampling with replacement]
+    Consider sampling $r = 2$ items from $n = 3$ items...
+\end{exmp}
+ Some authors argue that it is appropriate to assign equal probabilities to the unordered outcomes when "randomly distributing $r$ indistinguishable balls into $n$ distinguishable urns." That is, an urn is chosen at random and a ball placed in it, and this is repeated $r$ times. The order in which the balls are placed is not recorded so, in the end, an outcome such as $\{1,3\}$ means one ball is in urn 1 and one ball is in urn 3. \\
+ But here is the problem with this interpretation. Suppose two people observe this process, and Observer 1 will assign probability $\frac{2}{9}$ to the event $\{1,3\}$. Observer 2, who is observing exactly the same process, should also assign probability $\frac{2}{9}$ to this event. But if the six unordered outcomes are written on identical pieces of paper and one is randomly chosen to determine the placement of the balls, then the unordered outcomes each have probability $\frac{1}{6}$. So Observer 2 will assign probability $\frac{1}{6}$ to the event $\{1,3\}$. \\
+ The confusion arises because the phrase "with replacement" will typically be interpreted with the sequential kinda of sampling we described above, leading to assigning a probability $\frac{2}{9}$ to the event $\{1,3\}$. This is the correct way to proceed, as probabilities should be determined by the sampling mechanism, not whether the balls are distinguishable or indistinguishable.
+\begin{exmp}[Caldulating an average]
+    An illustration of the distinguishable/indistinguishable approach... \\
+    If there are $k$ places and we have $m$ different numbers repeated $k_1, k_2, ..., k_m$ times, then the number of ordered samples is $\frac{k!}{k_1!k_2!...k_m!}$. This type of counting is related to the \textit{multinomial distribution}, which we will see in Section 4.6. \\
+    Figure 1.2.2 (p. 19 of book) is an elementary version of a very important statistical technique known as the \textit{bootstrap} (Efron and Tibshirani 1993). We will return to the bootstrap in Section 10.1.4
+\end{exmp}
+\subsubsection{Conditional Probability and Independence}
+
+\begin{defn}
+    \label{def 1.3.2}
+    If $A$ and $B$ are events in $S$ and $P(B) > 0$, then the \textit{conditional probability} of $A$ \textit{given} $B$, written $P(A|B)$, is
+    \begin{align*}
+        P(A|B) = \frac{P(A \cap B)}{P(B)}
+    \end{align*}
+    Note that what happens in the conditional probability calculation is that $B$ becomes the sample space: $P(B|B) = 1$. The intuition is that our original sample space, $S$, has been updated to $B$. All further occurrences are then calibrated with respect to their relation to $B$. In particular, note what happens to conditional probabilities of disjoint sets. Suppose $A$ and $B$ are disjoint, so $P(A \cap B) = 0$. It then follows that $P(A|B) = P(B|A) = 0$.
+\end{defn}
+
+\begin{thm}[Bayes' Rule]
+    Let $A_1, A_2, ...$ be a partition of the sample space, and let $B$ be any set. Then for each $i = 1, 2, ...$,
+    \begin{align*}
+        P(A_i|B) = \frac{P(B|A_i)P(A_i)}{\sum^\infty_{j = 1}P(B|A_j)P(A_j)}.
+    \end{align*}
+\end{thm}
+
+\begin{defn}
+    Two events, $A$ and $B$, are \textit{statistically independent} if
+    \begin{align*}
+        P(A \cap B) = P(A)P(B).
+    \end{align*}
+    Note that independence could have been equivalently defined by either $P(A|B) = P(A)$ or $P(B|A) = \frac{P(A|B)P(B)}{P(A)} = \frac{P(A)P(B)}{P(A)} = P(B)$. The advantage of defining it this way is that it treats the events symmetrically and will be easier to generalise to more than two events.
+\end{defn}
+\begin{thm}
+    If $A$ and $B$ are independent events, then the following pairs are also independent:
+
+    \textbf{a.} $A$ and $B^c$ \\
+    \textbf{b.} $A^c$ and $B$ \\
+    \textbf{c.} $A^c$ and $B^c$
+\end{thm}
+All three statements can be proved as an exercise.
+\begin{defn}
+    A collection of events $A_1, ..., A_n$ are \textit{mutually independent} if for any subcollection $A_{i_1}, ..., A_{i_k}$, we have
+    \begin{align*}
+        P(\bigcap^k_{j = 1} A_{i_j}) = \prod^k_{j = 1} P(A_{i_j}).
+    \end{align*}
+\end{defn}
+
+\subsubsection{Random Variables}
+\begin{defn}
+    A \textit{random variable} is a function from a sample space $S$ into the real numbers.
+\end{defn}
+
+\subsubsection{Distribution Functions}
+\begin{defn}
+    The \textit{cumulative distribution function} or \textit{cdf} of a random variable $X$, denoted by $F_X(x)$, is defined by
+    \begin{align*}
+        F_X(x) = P_X(X \leq x),\ \forall x.
+    \end{align*}
+\end{defn}
+\begin{thm}
+    The function $F(x)$ is a cdf if and only if the following three conditions hold:
+
+    \textbf{a.} $\lim_{x \rightarrow -\infty} F(x) = 0$ and $\lim_{x \rightarrow \infty} F(x) = 1$. \\
+    \textbf{b.} $F(x)$ is a nondecreasing function of $x$. \\
+    \textbf{c.} $F(x)$ is right-continuous; that is, for every number $x_0$, $\lim_{x \downarrow x_0} F(x) = F(x_0)$.
+\end{thm}
+Whether a cdf is continuous or has jumps corresponds to the associated random variable being continuous or not. In fact, the association is such that it is convenient to define continuous random variables in this way.
+\begin{defn}
+    A random variable $X$ is \textit{continuous} if $F_X(x)$ is a continuous function of $x$. A random variable is \textit{discrete} if $F_X(x)$ is a step function of $x$.
+\end{defn}
+\begin{defn}
+    The random variables $X$ and $Y$ are \textit{identically distributed} if, for every set $A \in \mathcal{B}$, $P(X \in A) = P(Y \in A)$.
+\end{defn}
+\begin{thm}
+    The following two statements are equivalent:
+
+    \textbf{a.} The random variables $X$ and $Y$ are identically distributed. \\
+    \textbf{b.} $F_X(x) = F_Y(x)$ for every $x$.
+\end{thm}
+Sufficiency can be proven as an exercise, necessity is very hard. See page 34.
+\subsubsection{Density and Mass Functions}
+Associated with a random variable $X$ and its cdf $F_X$ is another function, called either the probability density function (pdf) or probability mass function (pmf). The terms pdf and pmf refer, respectively, to the continuous and discrete cases. Both pdfs and pmfs are concerned with "point probabilities" of random variables.
+\begin{defn}
+    The \textit{probability mass function (pmf)} of a discrete random variable $X$ is given by
+    \begin{align*}
+        f_X(x) = P(X = x)\ \forall x.
+    \end{align*}
+\end{defn}
+\begin{defn}
+    The \textit{probability density function} or \textit{pdf}, $f_X(x)$, of a continuous random variable $X$ is the function that satisfies
+    \begin{align*}
+        F_X(x) = \int^x_{-\infty} f_X(t)\ dt\ \forall x.
+    \end{align*}
+\end{defn}
+\begin{note}[notation]
+    The expression "$X$ has a distribution given by $F_X(x)$" is abbreviated symbolically by "$X \sim F_X(x)$", where we read the symbol "$\sim$" as "is distributed as". We can similarly write $X \sim f_X(x)$ or, if $X$ and $Y$ have the same distribution, $X \sim Y$.
+\end{note}
+Since $P(X = x) = 0$ if $X$ is a continuous random variable,
+\begin{align*}
+    P(a < X < b) = P(a < X \leq b) = P(a \leq X < b) = P(a \leq X \leq b).
+\end{align*}
+It should be clear that the pdf (or pmf) contains the same information as the cdf and we should choose whichever one makes the problem simpler.
+\begin{thm}
+    A function $f_X(x)$ is a pdf (or pmf) of a random variable $X$ if and only if
+
+    \textbf{a.} $f_X(x) \geq 0$ for all $x$. \\
+    \textbf{b.} $\sum_x f_X(x) = 1$ (pmf) or $\int^\infty_{-\infty} f_X(x) dx = 1$ (pdf).
+\end{thm}
+
+\subsection{Expectation}
+
+\subsubsection{Expectation of a Random Variable}
+
+\begin{defn}
+    The expected value, or mean, or first moment, of $X$ is defined to be
+    \eqnum{
+    \E{X} = \int x dF(x) = \begin{cases}
+        \sum_{x} xf(x) & \text{If $X$ is discrete} \\
+        \int xf(x) dx & \text{If $X$ is continuous}
+    \end{cases}
+    }
+    assuming that the sum (or integral) is well defined. Use the following notation to denote the expected value of $X$
+    \eqnum{
+    \E{X} = \mathbb{E} X = \int x dF(x) = \mu = \mu_{X}.
+    }
+\end{defn}
+$\int x dF(X)$ is used as a convenient unifying notation so we do not have to write $\sum_{x} xf(x)$ for discrete RVs and $\int xf(x) dx$ for continuous ones but be aware that $\int x dF(X)$ has a precise meaning that is discussed in real analysis course.
+
+To ensure that $\E{X}$ is well defined, we say that $\E{X}$ exists if $\int_{x} \abs{x} dF_{X}(x) < \infty$. Otherwise, we say that the expectation does not exist.
+
+To compute $\E{Y}$ when $Y = r(X)$, one way is to find $f_Y(y)$ then compute $\E{Y} = \int yf_{Y}(y) dy$.
+\begin{thm}[The Rule of the Lazy Statistician]
+    Let $Y = r(X)$. Then
+    \eqnum{
+    \E{Y} = \E{r(X)} = \int r(x) dF_{X}(x).
+    }
+\end{thm}
+\eqnum{
+Z = r(X,Y) \Rightarrow \E{Z} = \E{r(X,Y)} = \int \int r(x,y) dF(x,y).
+}
+The $k^{th}$ moment of $X$ is defined to be $\E{X^k}$ assuming that $\E{\abs{X}^k} < \infty$.
+\begin{thm}
+    If the $k^{th}$ moment exists and if $j < k$ then the $j^{th}$ moment exists.
+\end{thm}
+\begin{proof}
+    \begin{align*}
+        \E{\abs{X}^j} &= \int^{\infty}_{-\infty} \abs{x}^j f_{X}(x)\ dx \\
+        &= \int_{\abs{x} \leq 1} \abs{x}^j f_{X}(x)\ dx + \int_{\abs{x} > 1} \abs{x}^j f_{X}(x)\ dx \\
+        &\leq \int_{\abs{x} \leq 1} f_{X}(x)\ dx + \int_{\abs{x} > 1} \abs{x}^k f_{X}(x)\ dx \\
+        &\leq 1 - \E{\abs{X}^k} < \infty.
+    \end{align*}
+\end{proof}
+The $k^{th}$ central moment is defined to be $\E{(X - \mu)^k}$.
+
+\subsubsection{Properties of Expectations}
+
+\begin{thm}
+    If $X_1, ..., X_n$ are RVs and $a_1, ..., a_n$ are constants, then
+    \eqnum{
+    \E{\sum_{i} a_i X_i} = \sum_i a_i \E{X_i}.
+    }
+\end{thm}
+\begin{thm}
+    Let $X_1, ..., X_n$ be independent RVs. Then
+    \eqnum{
+    \E{\prod^{n}_{i = 1} X_i} = \prod_i \E{X_i}.
+    }
+\end{thm}
+Note the summation rule does not require independence but the product rule does.

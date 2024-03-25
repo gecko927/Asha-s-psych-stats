@@ -1,0 +1,100 @@
+\section{Statistical inference}
+
+Statistical inference, or "learning" as it is called in comp sci, is the process of using data to infer the distribution that generated the data. A typical statistical inference question is \\
+
+\textbf{Given a sample $X_1,...,X_n \sim F$, how do we infer $F$?}
+
+\subsection{Parametric and Nonparametric Models}
+
+A \textbf{statistical model} $\mathscr{F}$ is a set of distributions (or densities or regression functions). A \textbf{parametric model} is a set $\mathscr{F}$ that can be parameterized by a finite number of parameters. For example, assuming the data comes from a Normal distribution, the model is
+\begin{align*}
+    \mathscr{F} = \{f(x;\mu,\sigma) = \frac{1}{\sigma\sqrt{2\pi}} \exp{-\frac{1}{2\sigma^2}(x - \mu)^2},\ \mu \in \mathds{R}, \sigma > 0\}.
+\end{align*}
+This is a two-parameter model. Writing the density as $f(x;\mu,\sigma)$ shows that $x$ is a value of the RV while $\mu$ and $\sigma$ are parameters. In general, a parametric model takes the form
+\begin{align*}
+    \mathscr{F} = \{f(x;\theta):\theta \in \Theta\}
+\end{align*}
+where $\theta$ is an unknown parameter (or vector of parameters) that can take values in the \textbf{parameter space} $\Theta$. A \textbf{nonparametric model} is a set $\mathscr{F}$ that cannot be parameterized by a finite number of parameters. For example, $\mathscr{F}_{ALL} = \{\mathrm{all\ CDF's}\}$ is nonparametric\footnote{The distinction between parametric and nonparametric is more subtle than this but we don’t need a rigorous definition for our purposes}.
+
+\begin{exmp}[Regression, prediction, and classification]
+    Suppose we observe pairs of data $(X_1,Y_1),...,(X_n,Y_n)$. $X$ is called a predictor or regressor or feature or independent variable. $Y$ is called the outcome or the response variable or the dependent variable. We call $r(x) = \E{Y|X = x}$ the \textbf{regression function}. If we assume that $r \in \mathscr{F}$ where $\mathscr{F}$ is finite dimensional, then we have a \textbf{parametric regression model}. If $\mathscr{F}$ is not finite dimensional then we have a \textbf{nonparametric regression model}. The goal of predicting $Y$ for a new patient based on their $X$ value is called \textbf{prediction}. If $Y$ is discrete, then prediction is called \textbf{classification}. If we wish to estimate the function $r$, then we call this \textbf{regression} or \textbf{curve estimation}. Regression models are sometimes written as
+    \eqnum{
+    Y = r(X) + \epsilon
+    }
+    where $\E{\epsilon} = 0$. We can always rewrite a regression model this way. To see this, define $\epsilon = Y - r(X)$ and hence $Y = Y + r(X) - r(X) = r(X) + \epsilon$. Moreover, $\E{\epsilon} = \mathbb{E}\E{\epsilon|X} = \E{\E{Y - r(X)}|X} = \E{\E{Y|X} - r(X)} = \E{r(X) - r(X)} = 0$.
+\end{exmp}
+
+Notation: If $\mathscr{F} = \{f(x;\theta):\theta \in \Theta\}$ is a parametric model, we write $\mathds{P}_{\theta}(X \in A) = \int_{A}f(x;\theta) dx$ and $\mathbb{E}_{\theta}[r(X)] = \int r(x)f(x;\theta)dx$. The subscript $\theta$ indicates that the probability or expectation is w.r.t $f(x;\theta)$, not that we are averaging over $\theta$. Similarly, write $\mathbb{V}_{\theta}$ for the variance\footnote{There's no need to understand the logic behind the notation here, this is more for me so I don't lose track of what's happening}.
+
+Most inferential problems can be divided into either estimation, confidence sets, or hypothesis testing. We are interested mainly in hypothesis testing so I will only provide a basic description of the other two.
+
+\textbf{Point Estimation} \\
+Point estimation refers to providing a single "best guess" of some quantity of interest. We denote a point estimate of $\theta$ by $\hat{\theta}$ or $\hat{\theta}_n$.
+
+\textbf{Confidence Sets}\\
+A $1 - \alpha$ \textbf{confidence interval} for a parameter $\theta$ is an interval $C_n = (a,b)$ where $a = a(X_1,...,X_n)$ and $b = b(X_1,...,X_n)$ are functions of the data such that
+\begin{align}
+    \mathds{P}_{\theta}(\theta \in C_n) \geq 1 - \alpha,\ \forall \theta \in \Theta.
+\end{align}
+In words, $(a,b)$ traps $\theta$ with probability $1 - \alpha$. We call $1 - \alpha$ the \textbf{coverage} of the confidence interval.
+
+\textbf{Warning!} $C_n$ is random and $\theta$ is fixed. If $\theta$ is a vector then we use a \textbf{confidence set} instead of an interval.
+
+\textbf{Interpretation:} Don't think of it as, if I repeat the experiment over and over, the interval will contain the parameter 95 percent of the time. This is correct but useless since experiments are rarely repeated that many times. A better interpretation is that if you construct 95 percent confidence intervals with many parameters (e.g. $\theta_1,\theta_2,\theta_3,...$) then 95 percent of the intervals you construct will trap the true parameter value.
+
+\textbf{Note:} Remember that a confidfence interval is not a probability statement about $\theta$.
+
+\textbf{Hypothesis Testing} \\
+In hypothesis testing, we start with some default theory called a \textbf{null hypothesis} and ask if the data provides sufficient evidence to reject the theory. If not, we retain the null hypothesis.
+
+\begin{exmp}[Test if a coin is fair]
+    Let 
+    \begin{align*}
+        X_1,...,X_n \sim \mathrm{Bernoulli}(p)
+    \end{align*}
+    be $n$ independent coin flips. Suppose we want to test if the coin is fair. Let $H_0$ denote the hypothesis that the coin is fair and let $H_1$ denote the hypothesis. $H_0$ is called the \textbf{null hypothesis} and $H_1$ the \textbf{alternative hypothesis}. They can be written as
+    \begin{align*}
+        H_0:p = \frac{1}{2}\ \mathrm{versus}\ H_1:p \neq \frac{1}{2}.
+    \end{align*}
+    It seems reasonable to reject $H_0$ if $T = \abs{\hat{p}_n - \frac{1}{2}}$ is large. When we discuss hypothesis testing in detail, we will be more precise about how large $T$ should be to reject $H_0$.
+\end{exmp}
+Another question we could ask is if exposure to asbestos is associated with lung disease. We take some rats and randomly divide them into two groups. We expose one group to asbestos and leave the second group unexposed. Then we compare the disease rates in the two groups. Consider the following two hypotheses:
+
+\textbf{The Null Hypothesis:} The disease rate is the same in the two groups. \\
+\textbf{The Alternative Hypothesis:} The disease rate is not the same in the two groups.
+
+If the exposed group has a much higher rate of disease than the unexposed group then we will reject the null hypothesis. This is an example of hypothesis testing. More formally, suppose that we partititon the parameter space $\Theta$ into two disjoint sets $\Theta_0$ and $\Theta_1$ and that we wish to test
+\begin{align}
+    H_0: \theta \in \Theta_0\ \text{ versus }\ H_1: \theta \in \Theta_1.
+\end{align}
+We call $H_0$ the null hypothesis and $H_1$ the alternative hypothesis.
+
+Let $X$ be a random variable and let $\mathscr{X}$ be the range of $X$. We test a hypothesis by finding an appropriate subset of outcomes $R \subset \mathscr{X}$ called the rejection region. If $X \in R$ we reject the null hypothesis, otherwise, we do not reject the null hypothesis: \\
+$X \in R \Rightarrow \text{ reject } H_0$ \\
+$X \notin R \Rightarrow \text{ retain (do not reject) } H_0$.
+
+Usually the rejection region $R$ is of the form
+\begin{align}
+    R = \{x: T(x) > c\}
+\end{align}
+where $T$ is a test statistic and $c$ is a critical value. The problem in hypothesis testing is to find an appropriate test statistic $T$ and an appropriate critical value $c$.
+
+Hypothesis testing is like a legal trial. We assume someone is innocent unless the evidence strongly suggests that they are guilty. Similarly, we retain $H_0$ unless there is strong evidence to reject $H_0$. Rejecting $H_0$ when $H_0$ is true is called a type I error and retaining $H_0$ when $H_1$ is true is called a type II error.
+
+\subsection{Hypothesis testing}
+
+Summing up hypothesis testing. Every nonparametric procedure will have these steps.
+
+\textit{First, state the hypotheses.} There are two types of hypotheses, null and alternate. The null hypothesis says that no difference exists between the conditions, groups, or variables. The alternate hypothesis, also called a research hypothesis, predicts a difference or relationship between conditions, groups, or variables.
+
+The alternate hypothesis may be directional or nondirectional. A directional (one-tailed) hypothesis predicts a statistically significant change in a particular direction. A nondirectional (two-tailed) hypothesis predicts a statistically significant change, but in no particular direction.
+
+\textit{We then set the risk (or level of significance) associated with the null hypothesis.} Whenever we perform a test, there is always some chance that the results we get are due to chance instead of any real difference. Therefore, when we perform such tests, we state the level of risk that we are willing to accept. The two types of errors we can make are type $I$, where we claim that there is a difference (alternate is true and null is false) when in reality there is no difference and the null hypothesis is true, and type $II$, where we claim there is no difference (null is true and alternate is false) when in reality there is a real difference and the null hypothesis is false. The commonly accepted way of stating your risk levels is in terms of the probability you allow yourself to make type $I$ errors $\alpha$. Most of the time, $\alpha = 0.05$ is used, which means that when we claim our alternate hypothesis is true, we are correct $95\%$ of the time.
+
+\textit{We also choose a suitable test statistic based on the characteristics of the data.} For example, some tests are appropriate for two sample tests, while others are more appropriate for three or more samples. Different tests may also be suitable for different measurement scales. 
+
+\textit{We then compute the test statistic.} This is usually done with a computer program and the interpretation is different for each statistic so there is not much to say here.
+
+\textit{Determine what values the test statistic can take in order to reject the null hypothesis using the appropriate table of critical values for the particular statistic.} Finding this critical value may require you to use data characteristics such as the degrees of freedom, number of samples, and/or number of groups.
+
+\textit{Compare test statistic value with critical value in the table. Interpret the results then report them.}

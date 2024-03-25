@@ -1,0 +1,190 @@
+\documentclass[titlepage]{book}
+
+% Packages
+\usepackage[fontsize=12pt]{fontsize}
+\usepackage[utf8]{inputenc}
+\usepackage{afterpage}
+\usepackage{chngcntr}
+\usepackage{blindtext}
+\usepackage[TS1,T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{tikz}
+\usepackage[title]{appendix}
+\usepackage{graphicx}
+\usepackage{graphbox}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[margin=2cm, bottom = 6.5em]{geometry}
+\usepackage{gensymb}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage[hyperfootnotes = false , linktoc = page, pdfpagelayout = TwoPageRight]{hyperref}
+\usepackage{comment}
+\usepackage{lettrine}
+\usepackage{cfr-lm}
+\usepackage{makecell}
+\usepackage{soul}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{natbib}
+\usepackage{apalike}
+\usepackage{xassoccnt}
+\usepackage{array}
+\usepackage[labelsep = space]{caption}
+\usepackage[singlespacing]{setspace}
+\usepackage[flushmargin,multiple]{footmisc}
+\usepackage{multicol}
+\usepackage[defaultlines=4,all]{nowidow}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{wrapfig}
+\usepackage{multirow}
+
+\input{math_preamble}
+
+% Page headers
+\let\Sectionmark\sectionmark
+\def\sectionmark#1{\def\Sectionname{#1}\Sectionmark{#1}}
+
+\let\Subsectionmark\subsectionmark
+\def\subsectionmark#1{\def\Subsectionname{#1}\Subsectionmark{#1}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\thepage}
+\fancyhead[RE]{\Sectionname}
+\fancyhead[LO]{\MakeUppercase{\Subsectionname}}
+\fancyhead[RO]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% Graphics
+\graphicspath{ {./images/} }
+
+% Section format
+\counterwithin{subsection}{section}
+
+\renewcommand{\thesection}{PART \arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+\newcommand{\subsectionbreak}{\newpage}
+
+\titleformat{\section}[display]{\Large\bfseries\filcenter}{\thesection}{.5em}{}
+\titleformat{\subsection}[display]{\large\bfseries\filcenter}{\thesubsection}{0em}{\uppercase}
+
+\counterwithin*{footnote}{page}
+
+% Figures
+\renewcommand{\thefigure}{\roman{figure}}
+
+\renewcommand{\figurename}{\textsc{Fig.}}
+
+\newcommand{\fig}[3]{
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{#1}
+        \textbf{\caption{#2}}
+        \label{fig:#3}
+    \end{figure}
+}
+
+% Equations
+\newcommand{\eq}[1]{
+    \begin{equation*}
+    \begin{split}
+        #1
+    \end{split}
+    \end{equation*}
+}
+
+\newcommand{\eqnum}[1]{
+    \begin{equation}
+    \begin{split}
+        #1
+    \end{split}
+    \end{equation}
+}
+
+% References
+\hypersetup{
+    colorlinks=false,
+    linkbordercolor={0 0 0},
+    pdfborderstyle={/S/U/W 0.0}
+}
+
+\newcommand{\secref}[1]{\hyperref[sec:#1]{Section #1}}
+
+\newcommand{\figref}[1]{\hyperref[fig:#1]{Fig. #1}}
+
+% Table of contents format (maybe have hyperrefs here instead of just text)
+\renewcommand{\contentsname}{CONTENTS}
+\renewcommand{\cfttoctitlefont}{\hfil\bfseries\fontsize{15pt}{0pt}\selectfont}
+\renewcommand{\cftaftertoctitleskip}{0.5\baselineskip}
+\renewcommand{\cftsecfont}{\bfseries}
+
+\addtolength{\cftsecnumwidth}{40pt}
+\addtolength{\cftsubsecnumwidth}{10pt}
+\setlength{\cftbeforetoctitleskip}{-3em}
+
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+% Title setup
+\title{\textbf{\huge{Stats for Psych}}}
+
+\date{September 4th, 2023}
+
+% Misc
+\newcommand{\letlist}[1]{
+    \begin{enumerate}[label=(\emph{\alph*})]
+        #1
+    \end{enumerate}
+}
+
+% Document
+
+\begin{document}
+
+\maketitle
+
+% Preface
+
+\begin{center}
+    \textbf{\Large{PREFACE}}
+\end{center}
+
+PSY1205 notes.
+
+\vspace{\baselineskip}
+
+% Table of contents
+
+\pagenumbering{gobble}
+\pagestyle{empty}
+\newgeometry{bottom=6em}
+    \renewcommand{\baselinestretch}{0.94}\normalsize
+            \tableofcontents
+    \renewcommand{\baselinestretch}{1.0}\normalsize
+\restoregeometry
+\pagestyle{fancy}
+
+\clearpage
+
+% Content
+
+\pagenumbering{arabic}
+
+\include{topics/intro}
+
+\include{topics/probability}
+
+\include{topics/inference}
+
+\include{topics/wilcoxon}
+
+\end{document}

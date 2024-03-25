@@ -1,0 +1,157 @@
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1}
+\newenvironment{thisnote}{\par\color{blue}}{\par}
+\makeatletter
+\def\FN@baselinestretch{.6}
+\makeatother
+\renewcommand\qedsymbol{$\blacksquare$}
+\newenvironment{solution}
+ {\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+ {\end{proof}}
+\newcommand{\dd}{\text{ d}}
+\newcommand{\E}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\Ex}[2]{\mathbb{E}_{#1}\left[#2\right]}
+\newcommand{\Var}[1]{\text{Var}\left(#1\right)}
+\newcommand{\Cov}[1]{\text{Cov}\left(#1\right)}
+\newcommand{\pr}[1]{\text{Pr}\left(#1\right)}
+\newcommand{\PP}[1]{\mathbb{P}\left[#1\right]}
+\newcommand{\pto}{\overset{p}{\to}}
+\newcommand{\dto}{\overset{d}{\to}}
+\newcommand{\Perp}{\perp\!\!\!\perp}
+
+\bibliographystyle{apalike}
+
+
+\newcommand{\foo}{\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}}
+
+\def\citeapa #1{\citeauthor{#1}, \citeyear{#1}}
+
+\hypersetup{
+    colorlinks,
+    linkcolor={red!100!black},
+    citecolor={blue!100!black},
+    urlcolor={blue!100!black}
+}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[subsection]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem*{cor}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[subsection]
+\newtheorem{conj}{Conjecture}[section]
+\newtheorem{exmp}{Example}[subsection]
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+
+\DeclareCoupledCountersGroup{thms}
+\DeclareCoupledCounters[name=thms]{thm, defn, exmp}
+
+% For tables - From Kenneth's Automata and Bayesian Updating
+\tikzstyle{rect}=[rectangle, rounded corners, fill=white!20, text centered, draw=black,  minimum height=1.7em]
+\tikzstyle{rectb}=[rectangle, rounded corners, fill=white!20, text centered, draw=blue,  minimum height=1.7em]
+
+% Two node styles: solid and hollow - for game trees
+\tikzstyle{solid node}=[circle,draw,inner sep=1.2,fill=black]
+\tikzstyle{hollow node}=[circle,draw,inner sep=1.2]
+
+% From overleaf template
+
+% MATH SHORTHANDS
+% Partial Differential of #1 w.r.t. #2
+\newcommand{\dpartial}[2]{\frac{\partial #1}{\partial #2}}
+
+% \ceil{x} instead of \lceil x \rceil
+% Same for \floor{x}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+% Auto-resize () and []
+\newcommand*\autoop{\left(}
+\newcommand*\autocp{\right)}
+\newcommand*\autoob{\left[}
+\newcommand*\autocb{\right]}
+\AtBeginDocument {%
+   \mathcode`( 32768
+   \mathcode`) 32768
+   \mathcode`[ 32768
+   \mathcode`] 32768
+   \begingroup
+       \lccode`\~`(
+       \lowercase{%
+   \endgroup
+       \let~\autoop
+   }\begingroup
+       \lccode`\~`)
+       \lowercase{%
+   \endgroup
+       \let~\autocp
+   }\begingroup
+       \lccode`\~`[
+       \lowercase{%
+   \endgroup
+       \let~\autoob
+   }\begingroup
+       \lccode`\~`]
+       \lowercase{%
+   \endgroup
+       \let~\autocb
+}}
+\delimiterfactor 1001
+\makeatletter
+\AtBeginDocument {%
+          \def\resetMathstrut@{%
+           \setbox\z@\hbox{\the\textfont\symoperators\char40}%
+           \ht\Mathstrutbox@\ht\z@ \dp\Mathstrutbox@\dp\z@}%
+}%
+\makeatother
+
+\newcommand{\vecbr}[1]{\langle #1 \rangle}
+
+% Unit vectors
+
+\newcommand{\ui}{\hat{\imath}}
+\newcommand{\uj}{\hat{\jmath}}
+\newcommand{\uk}{\hat{k}}
+\newcommand{\V}{\vec{V}}
+
+% Common expressions
+
+\newcommand{\half}[1]{\frac{#1}{2}}
+\newcommand{\recip}[1]{\frac{1}{#1}}
+\newcommand{\invsqrt}[1]{\recip{\sqrt{#1}}}
+\newcommand{\halfpi}{\half{\pi}}
+
+% Integral evaluation bar
+\newcommand{\windbar}[2]{\Big|_{#1}^{#2}}
+\newcommand{\rightinfwindbar}[0]{\Big|_{0}^\infty}
+\newcommand{\leftinfwindbar}[0]{\Big|_{-\infty}^0}
+
+% Column type "L" for tabular environment, contents of column are in display mode by default
+\newcolumntype{L}{>{$}l<{$}}
+
+% Circled single character (used for state machine notation)
+
+\newcommand{\state}[1]{\large\protect\textcircled{\textbf{\small#1}}}
+
+% FORMATTING
+% Remove section numbers
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother
+% Indent text within section
+% \leftskip=2em
+% Center section headings
+\titleformat{\section}[block]{\Large\bfseries\filcenter}{}{1em}{}
+% `enumerate` environment uses (\alph) format
+\setlist[enumerate]{label=(\alph*)}
+
+\newcommand{\shrule}{\\ \centerline{\rule{13cm}{0.4pt}}}
